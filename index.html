@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>BEAX GAMES</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<div id="notificacion"></div>
+
+<body>
+
+<header class="header">
+  <div class="logo-container">
+    <img src="assets/logo.png" class="logo">
+    <h1>BEAX</h1>
+  </div>
+</header>
+
+<nav>
+  <button onclick="showTab('store')">Tienda</button>
+  <button onclick="showTab('library')">Biblioteca</button>
+  <button onclick="showTab('account')">Cuenta</button>
+</nav>
+
+<main>
+
+  <!-- TIENDA -->
+  <section id="store" class="tab">
+    <div id="featured">
+      <h2>🔥 Más vendidos</h2>
+<div id="mas-vendidos"></div>
+      <h2>Destacado</h2>
+      <div id="featured-game"></div>
+    </div>
+<p style="color:#ccc; max-width:600px; margin:auto;">
+Plataforma enfocada en distribución de videojuegos digitales, incluyendo títulos independientes y comerciales. Trabajamos para ofrecer una experiencia segura y accesible para jugadores.
+</p>
+   <h2 style="margin-top:20px;">Explora juegos nuevos y populares 🎮</h2>
+    <p style="color:#00ff88;">
+✔ Acceso instantáneo • ✔ Compra segura • ✔ Juegos verificados
+</p>
+    <input type="text" id="search" placeholder="Buscar juegos..." oninput="filtrarJuegos()">
+    <select id="ordenar" onchange="ordenarJuegos()">
+  <option value="default">Ordenar por</option>
+  <option value="precio-asc">Precio: menor a mayor</option>
+  <option value="precio-desc">Precio: mayor a menor</option>
+  <option value="nombre">Nombre A-Z</option>
+</select>
+    <div id="games-container"></div>
+  </section>
+
+  <!-- BIBLIOTECA -->
+  <section id="libraryTab" class="tab">
+    <h2>Tu biblioteca</h2>
+    <div id="library"></div>
+  </section>
+
+  <!-- CUENTA -->
+  <section id="account" class="tab">
+    <h2>Cuenta</h2>
+
+    <input type="text" id="username" placeholder="Usuario">
+    <input type="password" id="password" placeholder="Contraseña">
+
+    <br><br>
+
+    <button onclick="register()">Registrarse</button>
+    <button onclick="login()">Iniciar sesión</button>
+
+    <div id="user-panel"></div>
+  </section>
+
+</main>
+
+<script src="app.js"></script>
+
+</main>
+
+<h2>Sugerencias</h2>
+
+<textarea id="sugerencia" placeholder="¿Qué mejorarías en BEAX?"></textarea>
+
+<br><br>
+
+<button onclick="enviarSugerencia()">Enviar</button>
+
+<div id="lista-sugerencias"></div>
+
+<script src="app.js"></script>
+
+<footer style="margin-top:50px; padding:20px; background:#1a1a1a;">
+  <p>© 2025 BEAX Games</p>
+  <p>Plataforma digital de distribución de videojuegos</p>
+</footer>
+
+<h2>Contacto</h2>
+
+<p>¿Problemas o sugerencias?</p>
+
+<p>📧 beaxtechnology@gmail.com</p>
+
+<div id="admin-secret" onclick="irAdmin()"></div>
+
+<div id="admin-icon" onclick="abrirAdmin()">⚙️</div>
+
+<footer style="margin-top:50px; padding:30px; background:#1a1a1a; text-align:center; border-top:1px solid #00ff88;">
+
+  <p style="margin-bottom:10px;">© 2026 BEAX Games</p>
+
+  <p style="margin-bottom:10px; color:#ccc;">
+    Contacto: beaxtechnology@gmail.com
+  </p>
+
+  <p>
+    <a href="terms.html" style="color:#00ff88; text-decoration:none;">Términos</a> | 
+    <a href="privacy.html" style="color:#00ff88; text-decoration:none;">Privacidad</a> | 
+    <a href="contact.html" style="color:#00ff88; text-decoration:none;">Contacto</a>
+  </p>
+
+</footer>
+</body>
+</html>
+
+</body>
