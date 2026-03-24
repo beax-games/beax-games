@@ -15,7 +15,10 @@ if (Object.keys(roles).length === 0 && currentUser) {
 }
 
 // validar acceso
-if (roles[currentUser] === "admin") {
+if (
+  roles[currentUser] === "admin" ||
+  roles[currentUser] === "owner"
+) {
   document.getElementById("admin-content").style.display = "block";
 } else {
   document.body.innerHTML = "<h2>Acceso denegado</h2>";
