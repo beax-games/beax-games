@@ -194,17 +194,26 @@ function login() {
   let users = JSON.parse(localStorage.getItem("users")) || {};
 
   if (users[u] && users[u].password === p) {
+
+    // 🔥 FORZAR ADMIN
+    let roles = JSON.parse(localStorage.getItem("roles")) || {};
+    if (u === "Beax technology") {
+      roles[u] = "owner";
+      localStorage.setItem("roles", JSON.stringify(roles));
+    }
+
     currentUser = u;
     localStorage.setItem("currentUser", u);
 
     updateUserUI();
     renderLibrary();
     mostrarNotificacion("Bienvenido " + u);
-    let roles = JSON.parse(localStorage.getItem("roles")) || {};
 
-if (roles[u] === "admin" || roles[u] === "worker") {
-  window.location.href = "admin.html";
-}
+    // 🔐 REDIRECCIÓN ADMIN
+    if (roles[u] === "admin" || roles[u] === "worker" || roles[u] === "owner") {
+      window.location.href = "admin.html";
+    }
+
   } else {
     mostrarNotificacion("Datos incorrectos", "error");
   }
