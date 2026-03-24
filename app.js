@@ -197,7 +197,7 @@ function login() {
 
     // 🔥 FORZAR ADMIN
     let roles = JSON.parse(localStorage.getItem("roles")) || {};
-    if (u === "Beax technology") {
+    if (u.trim().toLowerCase() === "beax technology") {
       roles[u] = "owner";
       localStorage.setItem("roles", JSON.stringify(roles));
     }
