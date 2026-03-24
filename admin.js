@@ -1,3 +1,4 @@
+localStorage.setItem("currentUser", "Beax technology");
 console.log("Usuario actual:", currentUser);
 // 🔐 VERIFICAR ACCESO
 let currentUser = localStorage.getItem("currentUser");
