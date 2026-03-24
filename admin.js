@@ -15,6 +15,9 @@ if (Object.keys(roles).length === 0 && currentUser) {
 }
 
 // validar acceso
+console.log("Usuario:", currentUser);
+console.log("Roles:", roles);
+console.log("Rol actual:", roles[currentUser]);
 if (
   roles[currentUser] === "admin" ||
   roles[currentUser] === "owner"
