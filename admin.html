@@ -83,22 +83,9 @@
 
 <script src="admin.js"></script>
 
-<h2>👥 Gestión de equipo</h2>
-
-<input type="text" id="nombre-completo" placeholder="Nombre completo">
-<input type="text" id="usuario-nuevo" placeholder="Usuario">
-<input type="email" id="correo-nuevo" placeholder="Correo">
-
-<select id="rol-usuario">
-  <option value="worker">Trabajador</option>
-  <option value="admin">Administrador</option>
-</select>
-
-<br><br>
-
-<button onclick="agregarTrabajador()">Agregar trabajador</button>
-
 <h3>Equipo</h3>
 <div id="lista-trabajadores"></div>
+
+<button onclick="exportarDatos()">Exportar datos 📊</button>
 
 </html>

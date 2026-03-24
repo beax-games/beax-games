@@ -6,9 +6,9 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 
-<div id="notificacion"></div>
-
 <body>
+
+<div id="notificacion"></div>
 
 <header class="header">
   <div class="logo-container">
@@ -29,24 +29,27 @@
   <section id="store" class="tab">
     <div id="featured">
       <h2>🔥 Más vendidos</h2>
-<div id="mas-vendidos"></div>
+      <div id="mas-vendidos"></div>
+
       <h2>Destacado</h2>
       <div id="featured-game"></div>
     </div>
-<p style="color:#ccc; max-width:600px; margin:auto;">
-Plataforma enfocada en distribución de videojuegos digitales, incluyendo títulos independientes y comerciales. Trabajamos para ofrecer una experiencia segura y accesible para jugadores.
-</p>
-   <h2 style="margin-top:20px;">Explora juegos nuevos y populares 🎮</h2>
-    <p style="color:#00ff88;">
-✔ Acceso instantáneo • ✔ Compra segura • ✔ Juegos verificados
-</p>
+
+    <p style="color:#ccc; max-width:600px; margin:auto;">
+      Plataforma enfocada en distribución de videojuegos digitales, incluyendo títulos independientes y comerciales.
+    </p>
+
+    <h2 style="margin-top:20px;">Explora juegos nuevos 🎮</h2>
+
     <input type="text" id="search" placeholder="Buscar juegos..." oninput="filtrarJuegos()">
+
     <select id="ordenar" onchange="ordenarJuegos()">
-  <option value="default">Ordenar por</option>
-  <option value="precio-asc">Precio: menor a mayor</option>
-  <option value="precio-desc">Precio: mayor a menor</option>
-  <option value="nombre">Nombre A-Z</option>
-</select>
+      <option value="default">Ordenar por</option>
+      <option value="precio-asc">Precio: menor a mayor</option>
+      <option value="precio-desc">Precio: mayor a menor</option>
+      <option value="nombre">Nombre A-Z</option>
+    </select>
+
     <div id="games-container"></div>
   </section>
 
@@ -62,6 +65,7 @@ Plataforma enfocada en distribución de videojuegos digitales, incluyendo títul
 
     <input type="text" id="username" placeholder="Usuario">
     <input type="password" id="password" placeholder="Contraseña">
+    <input type="email" id="email" placeholder="Correo electrónico">
 
     <br><br>
 
@@ -73,10 +77,7 @@ Plataforma enfocada en distribución de videojuegos digitales, incluyendo títul
 
 </main>
 
-<script src="app.js"></script>
-
-</main>
-
+<!-- SUGERENCIAS -->
 <h2>Sugerencias</h2>
 
 <textarea id="sugerencia" placeholder="¿Qué mejorarías en BEAX?"></textarea>
@@ -87,39 +88,29 @@ Plataforma enfocada en distribución de videojuegos digitales, incluyendo títul
 
 <div id="lista-sugerencias"></div>
 
-<script src="app.js"></script>
-
-<footer style="margin-top:50px; padding:20px; background:#1a1a1a;">
-  <p>© 2025 BEAX Games</p>
-  <p>Plataforma digital de distribución de videojuegos</p>
-</footer>
-
+<!-- CONTACTO -->
 <h2>Contacto</h2>
-
-<p>¿Problemas o sugerencias?</p>
-
 <p>📧 beaxtechnology@gmail.com</p>
 
-<div id="admin-secret" onclick="irAdmin()"></div>
-
+<!-- ICONO ADMIN -->
 <div id="admin-icon" onclick="abrirAdmin()">⚙️</div>
 
+<!-- FOOTER -->
 <footer style="margin-top:50px; padding:30px; background:#1a1a1a; text-align:center; border-top:1px solid #00ff88;">
+  <p>© 2026 BEAX Games</p>
 
-  <p style="margin-bottom:10px;">© 2026 BEAX Games</p>
-
-  <p style="margin-bottom:10px; color:#ccc;">
+  <p style="color:#ccc;">
     Contacto: beaxtechnology@gmail.com
   </p>
 
   <p>
-    <a href="terms.html" style="color:#00ff88; text-decoration:none;">Términos</a> | 
-    <a href="privacy.html" style="color:#00ff88; text-decoration:none;">Privacidad</a> | 
-    <a href="contact.html" style="color:#00ff88; text-decoration:none;">Contacto</a>
+    <a href="terms.html" style="color:#00ff88;">Términos</a> | 
+    <a href="privacy.html" style="color:#00ff88;">Privacidad</a> | 
+    <a href="contact.html" style="color:#00ff88;">Contacto</a>
   </p>
-
 </footer>
+
+<script src="app.js"></script>
+
 </body>
 </html>
-
-</body>

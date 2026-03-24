@@ -1,5 +1,5 @@
-console.log("Usuario actual:", currentUser);
 let currentUser = localStorage.getItem("currentUser");
+console.log("Usuario actual:", currentUser);
 const games = [
   {
   name: "cyber ball",
@@ -144,6 +144,27 @@ function cambiarImagen(src) {
 // BOTÓN INTELIGENTE
 const boton = document.getElementById("boton-juego");
 
+if (boton) {
+  boton.addEventListener("click", () => {
+    let estado = juegos[nombre];
+
+    if (estado === "no-comprado") {
+      juegos[nombre] = "comprado";
+      mostrarNotificacion("Comprado 🤑");
+    } 
+    else if (estado === "comprado") {
+      mostrarNotificacion("Instalando... ⏳");
+      juegos[nombre] = "instalado";
+    } 
+    else {
+      mostrarNotificacion("Iniciando juego 🎮");
+    }
+
+    localStorage.setItem("juegos", JSON.stringify(juegos));
+    actualizarBoton();
+  });
+}
+
 let juegos = JSON.parse(localStorage.getItem("juegos")) || {};
 
 if (!juegos[nombre]) {
@@ -186,4 +207,3 @@ actualizarBoton();
 function cambiarImagen(src) {
   document.getElementById("main-image").src = src;
 }
-

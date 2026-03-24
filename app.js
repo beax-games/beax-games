@@ -1,40 +1,44 @@
+let currentUser = localStorage.getItem("currentUser");
 console.log("Usuario actual:", currentUser);
-let games = JSON.parse(localStorage.getItem("games")) || [
-  {
-   name: "cyber ball",
-    price: 50,
-    image: "https://picsum.photos/200/120?4"
-  },
-  {
-    name: "outside house",
-    price: 100,
-    image: "https://picsum.photos/200/120?4"
-  },
-  {
-    name: "Neon Battle",
-    price: 90,
-    image: "https://picsum.photos/200/120?3",
-    badge: "⭐ Top"
-  },
-  {
-    name: "Galaxy War",
-    price: 200,
-    image: "https://picsum.photos/200/120?4"
-  },
-  {
-    name: "Zombie Escape",
-    price: 80,
-    image: "https://picsum.photos/200/120?5"
-  },
-  {
-    name: "Racing X",
-    price: 110,
-    image: "https://picsum.photos/200/120?6"
-  }
-];
+let games = JSON.parse(localStorage.getItem("games"));
+
+if (!games || games.length === 0) {
+  games = [
+    {
+      name: "cyber ball",
+      price: 50,
+      image: "https://picsum.photos/200/120?4"
+    },
+    {
+      name: "outside house",
+      price: 100,
+      image: "https://picsum.photos/200/120?4"
+    },
+    {
+      name: "Neon Battle",
+      price: 90,
+      image: "https://picsum.photos/200/120?3",
+      badge: "⭐ Top"
+    },
+    {
+      name: "Galaxy War",
+      price: 200,
+      image: "https://picsum.photos/200/120?4"
+    },
+    {
+      name: "Zombie Escape",
+      price: 80,
+      image: "https://picsum.photos/200/120?5"
+    },
+    {
+      name: "Racing X",
+      price: 110,
+      image: "https://picsum.photos/200/120?6"
+    }
+  ];
+}
 
 // USUARIO
-let currentUser = localStorage.getItem("currentUser");
 let libraries = JSON.parse(localStorage.getItem("libraries")) || {};
 
 // ELEMENTOS
@@ -189,7 +193,7 @@ function login() {
 
   let users = JSON.parse(localStorage.getItem("users")) || {};
 
-  if (users[u] === p) {
+  if (users[u] && users[u].password === p) {
     currentUser = u;
     localStorage.setItem("currentUser", u);
 
@@ -210,6 +214,7 @@ if (roles[u] === "admin" || roles[u] === "worker") {
 function register() {
   const u = document.getElementById("username").value;
   const p = document.getElementById("password").value;
+  const e = document.getElementById("email").value;
 
   let users = JSON.parse(localStorage.getItem("users")) || {};
 
@@ -218,17 +223,20 @@ function register() {
     return;
   }
 
-  users[u] = p;
+  users[u] = {
+    password: p,
+    email: e
+  };
+
   let roles = JSON.parse(localStorage.getItem("roles")) || {};
 
-// si es el primer usuario, hacerlo admin automáticamente
-if (Object.keys(roles).length === 0) {
-  roles[u] = "owner";
-} else {
-  roles[u] = "user";
-}
+  if (Object.keys(roles).length === 0) {
+    roles[u] = "owner";
+  } else {
+    roles[u] = "user";
+  }
 
-localStorage.setItem("roles", JSON.stringify(roles));
+  localStorage.setItem("roles", JSON.stringify(roles));
   localStorage.setItem("users", JSON.stringify(users));
 
   mostrarNotificacion("Usuario registrado");

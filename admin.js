@@ -1,29 +1,18 @@
+// 🔐 USUARIO ACTUAL
 let currentUser = localStorage.getItem("currentUser");
-
-// 👑 PON TU USUARIO AQUÍ
-const OWNER = "Beax technology";
-
-// forzar admin si eres tú
-if (currentUser === OWNER) {
-  let roles = JSON.parse(localStorage.getItem("roles")) || {};
-  roles[currentUser] = "admin";
-  localStorage.setItem("roles", JSON.stringify(roles));
-}
-
 console.log("Usuario actual:", currentUser);
-// 🔐 VERIFICAR ACCESO
+
+// 📦 ROLES Y EMPLEADOS
 let roles = JSON.parse(localStorage.getItem("roles")) || {};
+let empleados = JSON.parse(localStorage.getItem("empleados")) || {};
+
+// 🔐 VERIFICAR ACCESO
 
 // primer admin automático
 if (Object.keys(roles).length === 0 && currentUser) {
   roles[currentUser] = "admin";
-  if (roles[user] === "owner") {
-  alert("No puedes eliminar al dueño");
-  return;
-}
   localStorage.setItem("roles", JSON.stringify(roles));
 }
-
 
 // validar acceso
 if (roles[currentUser] === "admin") {
@@ -56,6 +45,7 @@ function agregarJuego() {
 
   location.reload();
 }
+
 // 👥 AGREGAR WORKER
 function agregarWorker() {
   const nombre = document.getElementById("worker-name").value;
@@ -71,6 +61,8 @@ function agregarWorker() {
 // 👥 MOSTRAR WORKERS
 function renderWorkers() {
   const cont = document.getElementById("lista-workers");
+  if (!cont) return;
+
   cont.innerHTML = "";
 
   Object.keys(roles).forEach(user => {
@@ -115,15 +107,16 @@ function crearTrabajador() {
   renderWorkers();
 }
 
+// 🔐 FINANZAS
 const PASSWORD_ADMIN = "beaxcrac12";
 
 function entrarFinanzas() {
   const pass = prompt("Contraseña de seguridad:");
 
-  if (pass === "beaxcrac12") {
+  if (pass === PASSWORD_ADMIN) {
     window.location.href = "finanzas.html";
   } else {
-    mostrarNotificacion("Contraseña incorrecta", "error");
+    alert("Contraseña incorrecta");
   }
 }
 
@@ -166,10 +159,10 @@ function verFinanzas() {
   `;
 }
 
-document.getElementById("btn-finanzas").addEventListener("click", () => {
+document.getElementById("btn-finanzas")?.addEventListener("click", () => {
   const pass = document.getElementById("admin-pass").value;
 
-  if (pass !== "1234") {
+  if (pass !== PASSWORD_ADMIN) {
     alert("Contraseña incorrecta");
     return;
   }
@@ -215,16 +208,15 @@ function agregarTrabajador() {
   const rol = document.getElementById("rol-usuario").value;
 
   if (!nombre || !usuario || !correo) {
-    mostrarNotificacion("Completa todos los campos", "error");
+    alert("Completa todos los campos");
     return;
   }
 
   if (empleados[usuario]) {
-    mostrarNotificacion("Este usuario ya existe", "error");
+    alert("Este usuario ya existe");
     return;
   }
 
-  // guardar empleado
   empleados[usuario] = {
     nombre: nombre,
     correo: correo,
@@ -236,7 +228,7 @@ function agregarTrabajador() {
   localStorage.setItem("empleados", JSON.stringify(empleados));
   localStorage.setItem("roles", JSON.stringify(roles));
 
-  mostrarNotificacion("Trabajador agregado");
+  alert("Trabajador agregado");
 
   limpiarCampos();
   renderTrabajadores();
@@ -244,6 +236,7 @@ function agregarTrabajador() {
 
 function renderTrabajadores() {
   const contenedor = document.getElementById("lista-trabajadores");
+  if (!contenedor) return;
 
   contenedor.innerHTML = "";
 
@@ -266,7 +259,7 @@ function renderTrabajadores() {
 
 function eliminarTrabajador(user) {
   if (roles[user] === "superadmin") {
-    mostrarNotificacion("No puedes eliminar al dueño 👑", "error");
+    alert("No puedes eliminar al dueño 👑");
     return;
   }
 
@@ -276,7 +269,7 @@ function eliminarTrabajador(user) {
   localStorage.setItem("empleados", JSON.stringify(empleados));
   localStorage.setItem("roles", JSON.stringify(roles));
 
-  mostrarNotificacion("Empleado eliminado");
+  alert("Empleado eliminado");
 
   renderTrabajadores();
 }
@@ -289,3 +282,24 @@ function limpiarCampos() {
 
 // iniciar
 renderTrabajadores();
+
+function exportarDatos() {
+  const users = JSON.parse(localStorage.getItem("users")) || {};
+  const compras = JSON.parse(localStorage.getItem("compras")) || [];
+  const empleados = JSON.parse(localStorage.getItem("empleados")) || {};
+
+  const data = {
+    usuarios: users,
+    compras: compras,
+    empleados: empleados
+  };
+
+  const blob = new Blob([JSON.stringify(data, null, 2)], {
+    type: "application/json"
+  });
+
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "beax_datos.json";
+  a.click();
+}
