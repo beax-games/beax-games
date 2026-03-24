@@ -1,3 +1,5 @@
+console.log("Usuario actual:", currentUser);
+let currentUser = localStorage.getItem("currentUser");
 const games = [
   {
   name: "cyber ball",
