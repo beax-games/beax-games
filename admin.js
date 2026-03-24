@@ -1,42 +1,38 @@
-// 🔐 USUARIO ACTUAL
 let currentUser = localStorage.getItem("currentUser");
-console.log("Usuario actual:", currentUser);
 
-// 📦 ROLES Y EMPLEADOS
-let roles = JSON.parse(localStorage.getItem("roles")) || {};
-let empleados = JSON.parse(localStorage.getItem("empleados")) || {};
-
-// 👑 =============================
-// USUARIO PRINCIPAL
+// 👑 PON TU USUARIO AQUÍ
 const OWNER = "Beax technology";
-// 👑 =============================
 
-// FORZAR SUPERADMIN
+// forzar admin si eres tú
 if (currentUser === OWNER) {
-  roles[currentUser] = "superadmin";
+  let roles = JSON.parse(localStorage.getItem("roles")) || {};
+  roles[currentUser] = "admin";
+  localStorage.setItem("roles", JSON.stringify(roles));
 }
 
-// SI NO HAY ROLES, EL PRIMERO ES ADMIN
+console.log("Usuario actual:", currentUser);
+// 🔐 VERIFICAR ACCESO
+let roles = JSON.parse(localStorage.getItem("roles")) || {};
+
+// primer admin automático
 if (Object.keys(roles).length === 0 && currentUser) {
   roles[currentUser] = "admin";
+  if (roles[user] === "owner") {
+  alert("No puedes eliminar al dueño");
+  return;
+}
+  localStorage.setItem("roles", JSON.stringify(roles));
 }
 
-// GUARDAR
-localStorage.setItem("roles", JSON.stringify(roles));
 
-// VALIDAR ACCESO
-if (
-  roles[currentUser] === "admin" ||
-  roles[currentUser] === "superadmin"
-) {
+// validar acceso
+if (roles[currentUser] === "admin") {
   document.getElementById("admin-content").style.display = "block";
 } else {
   document.body.innerHTML = "<h2>Acceso denegado</h2>";
 }
 
-// 🎮 =============================
-// AGREGAR JUEGO
-// =============================
+// 🎮 AGREGAR JUEGO
 function agregarJuego() {
   let games = JSON.parse(localStorage.getItem("games")) || [];
 
@@ -53,15 +49,165 @@ function agregarJuego() {
   };
 
   games.push(nuevo);
+
   localStorage.setItem("games", JSON.stringify(games));
 
   alert("Juego creado 🚀");
+
   location.reload();
 }
+// 👥 AGREGAR WORKER
+function agregarWorker() {
+  const nombre = document.getElementById("worker-name").value;
+  const rol = document.getElementById("worker-role").value;
 
-// 👥 =============================
-// AGREGAR TRABAJADOR
-// =============================
+  roles[nombre] = rol;
+
+  localStorage.setItem("roles", JSON.stringify(roles));
+
+  renderWorkers();
+}
+
+// 👥 MOSTRAR WORKERS
+function renderWorkers() {
+  const cont = document.getElementById("lista-workers");
+  cont.innerHTML = "";
+
+  Object.keys(roles).forEach(user => {
+    const div = document.createElement("div");
+
+    div.innerHTML = `
+      <p>${user} - ${roles[user]}</p>
+      <button onclick="eliminarWorker('${user}')">Eliminar</button>
+    `;
+
+    cont.appendChild(div);
+  });
+}
+
+// ❌ ELIMINAR
+function eliminarWorker(user) {
+  delete roles[user];
+
+  localStorage.setItem("roles", JSON.stringify(roles));
+
+  renderWorkers();
+}
+
+renderWorkers();
+
+function crearTrabajador() {
+  let workers = JSON.parse(localStorage.getItem("workers")) || {};
+  let roles = JSON.parse(localStorage.getItem("roles")) || {};
+
+  const user = document.getElementById("worker-user").value;
+
+  workers[user] = {
+    nombre: document.getElementById("worker-name").value,
+    correo: document.getElementById("worker-email").value
+  };
+
+  roles[user] = document.getElementById("worker-role").value;
+
+  localStorage.setItem("workers", JSON.stringify(workers));
+  localStorage.setItem("roles", JSON.stringify(roles));
+
+  renderWorkers();
+}
+
+const PASSWORD_ADMIN = "beaxcrac12";
+
+function entrarFinanzas() {
+  const pass = prompt("Contraseña de seguridad:");
+
+  if (pass === "beaxcrac12") {
+    window.location.href = "finanzas.html";
+  } else {
+    mostrarNotificacion("Contraseña incorrecta", "error");
+  }
+}
+
+function verFinanzas() {
+  const pass = document.getElementById("admin-pass").value;
+
+  if (pass !== PASSWORD_ADMIN) {
+    alert("Contraseña incorrecta");
+    return;
+  }
+
+  const cont = document.getElementById("finanzas");
+
+  let compras = JSON.parse(localStorage.getItem("compras")) || [];
+
+  let total = 0;
+
+  compras.forEach(c => {
+    total += Number(c.price);
+  });
+
+  cont.innerHTML = `
+    <h3>Total ganado: $${total} MXN</h3>
+
+    <table border="1" style="width:100%; margin-top:10px; color:white;">
+      <tr>
+        <th>Usuario</th>
+        <th>Juego</th>
+        <th>Precio</th>
+      </tr>
+
+      ${compras.map(c => `
+        <tr>
+          <td>${c.user}</td>
+          <td>${c.game}</td>
+          <td>$${c.price}</td>
+        </tr>
+      `).join("")}
+    </table>
+  `;
+}
+
+document.getElementById("btn-finanzas").addEventListener("click", () => {
+  const pass = document.getElementById("admin-pass").value;
+
+  if (pass !== "1234") {
+    alert("Contraseña incorrecta");
+    return;
+  }
+
+  const cont = document.getElementById("finanzas");
+
+  let compras = JSON.parse(localStorage.getItem("compras")) || [];
+
+  if (compras.length === 0) {
+    cont.innerHTML = "<p>No hay ventas aún</p>";
+    return;
+  }
+
+  let total = 0;
+
+  compras.forEach(c => total += Number(c.price));
+
+  cont.innerHTML = `
+    <h3>Total ganado: $${total} MXN</h3>
+
+    <table border="1" style="width:100%">
+      <tr>
+        <th>Usuario</th>
+        <th>Juego</th>
+        <th>Precio</th>
+      </tr>
+
+      ${compras.map(c => `
+        <tr>
+          <td>${c.user}</td>
+          <td>${c.game}</td>
+          <td>$${c.price}</td>
+        </tr>
+      `).join("")}
+    </table>
+  `;
+});
+
 function agregarTrabajador() {
   const nombre = document.getElementById("nombre-completo").value;
   const usuario = document.getElementById("usuario-nuevo").value;
@@ -69,15 +215,16 @@ function agregarTrabajador() {
   const rol = document.getElementById("rol-usuario").value;
 
   if (!nombre || !usuario || !correo) {
-    alert("Completa todos los campos");
+    mostrarNotificacion("Completa todos los campos", "error");
     return;
   }
 
   if (empleados[usuario]) {
-    alert("Este usuario ya existe");
+    mostrarNotificacion("Este usuario ya existe", "error");
     return;
   }
 
+  // guardar empleado
   empleados[usuario] = {
     nombre: nombre,
     correo: correo,
@@ -89,17 +236,14 @@ function agregarTrabajador() {
   localStorage.setItem("empleados", JSON.stringify(empleados));
   localStorage.setItem("roles", JSON.stringify(roles));
 
-  alert("Trabajador agregado");
+  mostrarNotificacion("Trabajador agregado");
 
   limpiarCampos();
   renderTrabajadores();
 }
 
-// 👀 MOSTRAR TRABAJADORES
 function renderTrabajadores() {
   const contenedor = document.getElementById("lista-trabajadores");
-
-  if (!contenedor) return;
 
   contenedor.innerHTML = "";
 
@@ -120,10 +264,9 @@ function renderTrabajadores() {
   }
 }
 
-// ❌ ELIMINAR TRABAJADOR
 function eliminarTrabajador(user) {
   if (roles[user] === "superadmin") {
-    alert("No puedes eliminar al dueño 👑");
+    mostrarNotificacion("No puedes eliminar al dueño 👑", "error");
     return;
   }
 
@@ -133,32 +276,16 @@ function eliminarTrabajador(user) {
   localStorage.setItem("empleados", JSON.stringify(empleados));
   localStorage.setItem("roles", JSON.stringify(roles));
 
-  alert("Empleado eliminado");
+  mostrarNotificacion("Empleado eliminado");
 
   renderTrabajadores();
 }
 
-// 🧹 LIMPIAR CAMPOS
 function limpiarCampos() {
   document.getElementById("nombre-completo").value = "";
   document.getElementById("usuario-nuevo").value = "";
   document.getElementById("correo-nuevo").value = "";
 }
 
-// 🔐 =============================
-// FINANZAS
-// =============================
-const PASSWORD_ADMIN = "beaxcrac12";
-
-function entrarFinanzas() {
-  const pass = prompt("Contraseña de seguridad:");
-
-  if (pass === PASSWORD_ADMIN) {
-    window.location.href = "finanzas.html";
-  } else {
-    alert("Contraseña incorrecta");
-  }
-}
-
-// INICIAR
+// iniciar
 renderTrabajadores();
