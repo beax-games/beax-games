@@ -1,3 +1,4 @@
+console.log("Usuario actual:", currentUser);
 let games = JSON.parse(localStorage.getItem("games")) || [
   {
    name: "cyber ball",
