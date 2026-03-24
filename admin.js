@@ -1,3 +1,4 @@
+console.log("Usuario actual:", currentUser);
 // 🔐 VERIFICAR ACCESO
 let currentUser = localStorage.getItem("currentUser");
 let roles = JSON.parse(localStorage.getItem("roles")) || {};
