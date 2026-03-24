@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel Admin - BEAX</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<h1>Panel de Administración</h1>
+
+<!-- 🔐 CONTROL DE ACCESO -->
+<div id="admin-content" style="display:none;">
+
+  <!-- 🎮 AGREGAR JUEGO -->
+  <h2>Agregar trabajador</h2>
+
+<input id="worker-user" placeholder="Usuario">
+<input id="worker-name" placeholder="Nombre completo">
+<input id="worker-email" placeholder="Correo">
+
+<select id="worker-role">
+  <option value="worker">Worker</option>
+  <option value="admin">Admin</option>
+</select>
+
+<br><br>
+
+<button onclick="crearTrabajador()">Crear trabajador</button>
+
+<div id="lista-workers"></div>
+  <hr>
+
+  <!-- 👥 TRABAJADORES -->
+  <h2>Trabajadores</h2>
+
+  <input id="worker-name" placeholder="Usuario">
+  <select id="worker-role">
+    <option value="worker">Worker</option>
+    <option value="admin">Admin</option>
+  </select>
+
+  <button onclick="agregarWorker()">Agregar</button>
+
+  <div id="lista-workers"></div>
+
+</div>
+
+</body>
+
+<h2>Nuevo Juego</h2>
+
+<input id="game-name" placeholder="Nombre">
+<input id="game-price" placeholder="Precio">
+
+<br><br>
+
+<input id="img1" placeholder="Imagen principal">
+<input id="img2" placeholder="Imagen 2">
+<input id="img3" placeholder="Imagen 3">
+
+<br><br>
+
+<input id="video" placeholder="URL video (opcional)">
+
+<br><br>
+
+<textarea id="game-desc" placeholder="Descripción"></textarea>
+
+<br><br>
+
+<button onclick="agregarJuego()">LISTO</button>
+<hr>
+
+<h2>Panel Financiero 🔒</h2>
+
+<input type="password" id="admin-pass" placeholder="Contraseña">
+<button onclick="window.location.href='finanzas.html'">
+  Finanzas
+</button>
+
+<div id="finanzas"></div>
+
+<script src="admin.js"></script>
+
+<h3>Equipo</h3>
+<div id="lista-trabajadores"></div>
+
+<button onclick="exportarDatos()">Exportar datos 📊</button>
+
+</html>
