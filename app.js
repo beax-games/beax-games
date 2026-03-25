@@ -5,9 +5,10 @@ let games = JSON.parse(localStorage.getItem("games"));
 if (!games || games.length === 0) {
   games = [
     {
-      name: "cyber ball",
-      price: 50,
-      image: "https://picsum.photos/200/120?4"
+     name: "Resident Evil Requiem",
+  price: 787,
+  image: "URL_IMAGEN",
+  link: "https://www.g2a.com/n/residentevilre9uiem"
     },
     {
       name: "outside house",
@@ -58,11 +59,15 @@ function renderStore() {
     const button = document.createElement("button");
     button.textContent = "Comprar";
 
-    button.onclick = (e) => {
-      e.stopPropagation();
-      buyGame(game.name);
-    };
+   button.onclick = (e) => {
+  e.stopPropagation();
 
+  if (game.link) {
+    window.open(game.link, "_blank");
+  } else {
+    mostrarNotificacion("Próximamente disponible");
+  }
+};
     div.innerHTML = `
       <img src="${game.image}">
       <h3>${game.name}</h3>
