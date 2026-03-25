@@ -2,20 +2,15 @@ let currentUser = localStorage.getItem("currentUser");
 console.log("Usuario actual:", currentUser);
 const games = [
   {
-  name: "cyber ball",
-  price: 200,
-  image: "https://picsum.photos/200/120?4",
-  description: "Batallas espaciales épicas contra flotas enemigas.",
+ name: "Resident Evil Requiem",
+  price: 787,
+  image: "URL_IMAGEN",
+  description: "marca un capítulo revolucionario en el terror de supervivencia, ofreciendo la entrega más inmersiva hasta ahora de la legendaria saga Resident Evil. Ponte en la piel de Grace Ashcroft, analista del FBI, para enfrentar un terror implacable, y únete al experimentado agente Leon S. Kennedy en acción de alta intensidad. Sus caminos y estilos de juego distintos se entrelazan en una aventura emocionante y cargada de emociones que te dejará sin aliento y perseguido por sus imágenes.",
   category: "Acción",
   platform: "PC",
   developer: "BEAX Studios",
   release: "2025",
-  images: [
-    "https://picsum.photos/500/300?4",
-    "https://picsum.photos/500/300?44",
-    "https://picsum.photos/500/300?444"
-  
-  ]
+  link: "https://www.g2a.com/n/residentevilre9uiem"
 },
   {
   name: "outside house",
