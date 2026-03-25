@@ -207,3 +207,7 @@ actualizarBoton();
 function cambiarImagen(src) {
   document.getElementById("main-image").src = src;
 }
+
+function comprarJuego() {
+  window.open("https://www.g2a.com/n/residentevilre9uiem", "_blank");
+}
